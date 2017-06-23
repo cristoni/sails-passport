@@ -38,6 +38,8 @@ module.exports.routes = {
 
   //this is, combined with disabling blueprints will restrict access to the required action based on controller
   'POST /auth/login': 'AuthController.login',
+  'GET /auth/google': 'AuthController.google',
+  'GET /auth/google/callback': 'AuthController.googleCallback',
   'GET /auth/validate_token' : 'AuthController.validate_token',
   'GET /auth/logout': 'AuthController.logout',
   'POST /register' : 'UserController.register',

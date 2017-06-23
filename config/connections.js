@@ -40,13 +40,13 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
-  mysqlServer: {
-    adapter: 'sails-mysql',
-    host: 'localhost',
-    user: 'sails_passport', //optional
-    password: 'sails_passport', //optional
-    database: 'sails_passport' //optional
-  },
+  // mysqlServer: {
+  //   adapter: 'sails-mysql',
+  //   host: 'localhost',
+  //   user: 'sails_passport', //optional
+  //   password: 'sails_passport', //optional
+  //   database: 'sails_passport' //optional
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -56,14 +56,10 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
-  // someMongodbServer: {
-  //   adapter: 'sails-mongo',
-  //   host: 'localhost',
-  //   port: 27017,
-  //   user: 'username', //optional
-  //   password: 'password', //optional
-  //   database: 'your_mongo_db_name_here' //optional
-  // },
+  mongodbServer: {
+    adapter: 'sails-mongo',
+    url: "mongodb://heroku_f28kzpr1:f96ul5o2ocvcir4sk20ivv6ck2@ds129352.mlab.com:29352/heroku_f28kzpr1"
+  },
 
   /***************************************************************************
   *                                                                          *
