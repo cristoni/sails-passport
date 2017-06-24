@@ -5,6 +5,8 @@ Boilerplate to generate quick pure RESTful API with sailsjs + MongoDB + passport
 ## Available Routes:
 * POST /register (with new email & password key value)
 * POST /auth/login (with existed email & password key value) -> return token
+* GET /auth/google (for google oauth)
+* GET /auth/facebook (for facebook oauth)
 * GET /auth/validate_token (with key:Authorization & value: 'Bearer `<your valid token>`' in header)
 * GET /quote/open (to access random Chuck Norris quote)
 * GET /quote/protected (with valid token in header to access protected random Chuck Norris quote) 
