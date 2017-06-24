@@ -26,7 +26,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
   },
   "main": "app.js",
   "repository": {
@@ -34,5 +34,8 @@
     "url": "git://github.com/macPendler/sails-passport.git"
   },
   "author": "macPendler",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "cross-env": "^5.0.1"
+  }
 }

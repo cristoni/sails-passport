@@ -38,9 +38,9 @@ passport.use(new LocalStrategy(
 );
 
 passport.use(new GoogleStrategy({
-        clientID: '620527013823-qv9cerqao5u1ij3arl1ongeta2b6oaks.apps.googleusercontent.com',
-        clientSecret: 'aBP1EQjfIO-cQuBEA0234WDY',
-        callbackURL: "http://aemporium.com:1337/auth/google/callback",
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
         scope: 'profile email'
     },
     function (accessToken, refreshToken, profile, done) {
@@ -94,6 +94,63 @@ passport.use(new GoogleStrategy({
         });
     })
 );
+
+passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+        scope: ['public_profile', 'email'],
+        profileFields: ['id', 'displayName', 'email', 'name', 'picture.type(large)'],
+        enableProof: false
+    },
+    function (accessToken, refreshToken, profile, done) {
+        var username = profile.emails[0].value;
+        
+        User.find({username:username}).exec(function(err, user) {
+
+            if (err || !user || user.length < 1) {
+                var password = randomstring.generate({
+                    length: 12,
+                    charset: 'alphabetic'
+                });
+
+                var newUser = {
+                    username: username,
+                    email: username,
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName,
+                    displayName: profile.displayName,
+                    photo: profile.photos[0].value,
+                    provider: 'facebook',
+                    password: password
+                };
+
+                User.create(newUser)
+                    .exec( function( err, user ){
+                        if (err) {
+                            return done(null, err);
+                        } else {
+                            // transporter.sendMail({
+                            //   from: 'Æmporium <info@aemporium.net>',
+                            //   to: user.email,
+                            //   subject: 'Registrazione effettuata con successo',
+                            //   text: 'Grazie di esserti registrato e benvenuto su Æmporium.net. La tua password è: ' + _password,
+                            //   html: '<p>Grazie di esserti registrato e <b>benvenuto</b> su Æmporium.net.<br /><br /><a href="aemporium.net">Inizia subito a navigare tra gli annunci di tuo interesse!</a><br /><br />La tua password è: <i>'+ _password +'</i></p>',
+                            // }, function(err, info) {
+                            //   if(err) return err;
+
+                            //   return info;
+                            // });
+
+                            return done(null, user);
+                        }
+                    });
+            } else {
+                return done(null, user);
+            }
+        });
+    }
+));
 
 module.exports = {
     http: {

@@ -52,13 +52,52 @@ module.exports = {
                     var token = jwt.sign(_user, sails.config.secret, {expiresIn: 60 * 60 * 24});
                     // Set persistent cookie
                     req.session.cookie.token = token;
-                    res.header('success', true);
-                    res.header('user', JSON.stringify({
-                        email: _user.email,
-                        username: _user.username
-                    }));
-                    res.header('token', token);
-                    res.redirect(302, '/');
+
+                    var data = new Buffer(JSON.stringify({
+                        success: true,
+                        user: {
+                            email: _user.email,
+                            username: _user.username
+                        },
+                        token: token
+                    })).toString('base64');
+
+                    res.redirect(302, '/?data=' + data);
+                }
+            }
+        })(req, res);
+    },
+    facebook: function (req, res) {
+        passport.authenticate('facebook')(req, res);
+    },
+    facebookCallback: function (req, res) {
+        passport.authenticate('facebook', function (err, user) {
+            if (!user) {
+                // invalidLogin
+                res.redirect(400, '/login');
+                return;
+            } else {
+                if (err) {
+                    // unknownError
+                    res.redirect(400, '/login');
+                } else {
+                    var _user = Array.isArray(user) ? user[0] : user;
+
+                    //token expired in 1 day
+                    var token = jwt.sign(_user, sails.config.secret, {expiresIn: 60 * 60 * 24});
+                    // Set persistent cookie
+                    req.session.cookie.token = token;
+
+                    var data = new Buffer(JSON.stringify({
+                        success: true,
+                        user: {
+                            email: _user.email,
+                            username: _user.username
+                        },
+                        token: token
+                    })).toString('base64');
+
+                    res.redirect(302, '/?data=' + data);
                 }
             }
         })(req, res);

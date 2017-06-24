@@ -40,6 +40,8 @@ module.exports.routes = {
   'POST /auth/login': 'AuthController.login',
   'GET /auth/google': 'AuthController.google',
   'GET /auth/google/callback': 'AuthController.googleCallback',
+  'GET /auth/facebook': 'AuthController.facebook',
+  'GET /auth/facebook/callback': 'AuthController.facebookCallback',
   'GET /auth/validate_token' : 'AuthController.validate_token',
   'GET /auth/logout': 'AuthController.logout',
   'POST /register' : 'UserController.register',

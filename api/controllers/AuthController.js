@@ -17,6 +17,12 @@ module.exports = {
     googleCallback: function (req, res) {
         auth.googleCallback(req, res);
     },
+    facebook: function (req, res) {
+        auth.facebook(req, res);
+    },
+    facebookCallback: function (req, res) {
+        auth.facebookCallback(req, res);
+    },
     validate_token: function (req, res) {
         auth.isvalidtoken(req, res);
     },
