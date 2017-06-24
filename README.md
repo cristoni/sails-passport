@@ -1,6 +1,6 @@
 # sails-passport
 
-Boilerplate to generate quick pure RESTful API with sailsjs + MySQL + passport and jwt token authentication 
+Boilerplate to generate quick pure RESTful API with sailsjs + MongoDB + passport and jwt token authentication 
 
 ## Available Routes:
 * POST /register (with new email & password key value)
@@ -12,8 +12,8 @@ Boilerplate to generate quick pure RESTful API with sailsjs + MySQL + passport a
 ## Key Features:
 ### Version 0.0.1
 * Sailsjs web framework with all their features
-* Authentification with passportjs (local) and JSON Web Token
-* MySQL database connection
+* Authentification with passportjs (local, google, facebook) and JSON Web Token
+* MongoDB database connection
 * Enable CORS for access from different application
 * Password encrypted (with bcrypt)
 * Email checking
@@ -22,7 +22,7 @@ Boilerplate to generate quick pure RESTful API with sailsjs + MySQL + passport a
 ## HOW TO:
 * Clone this repo and `cd` to your destined folder
 * Make sure your MySQL server is running
-* Change the value of `mysqlServer` in `/config/connections` to reflect your own MySQL setup conf (make sure to use new dedicated database since it will alter the database, unless you change the config in connections.js )
+* Change the value of `mongoDBServer` in `/config/connections` to reflect your own MongoDB setup conf (make sure to use new dedicated database since it will alter the database, unless you change the config in connections.js )
 * run `npm install`
 * run `sails lift`
 
